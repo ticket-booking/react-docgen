@@ -1,5 +1,7 @@
+benchmark/fixtures/
 src/__tests__/fixtures/
 dist/
 flow-typed/
+node_modules
 website/node_modules
 website/dist/

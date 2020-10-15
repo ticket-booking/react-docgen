@@ -8,17 +8,11 @@
  */
 
 const babel = require('@babel/core');
-const path = require('path');
-
-const TYPESCRIPT_EXTS = {
-  '.ts': true,
-  '.tsx': true,
-};
 
 function getDefaultPlugins(options: BabelOptions) {
   return [
     'jsx',
-    TYPESCRIPT_EXTS[path.extname(options.filename || '')]
+    options.filename.endsWith('.ts') || options.filename.endsWith('.tsx')
       ? 'typescript'
       : 'flow',
     'asyncGenerators',

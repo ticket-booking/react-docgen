@@ -45,7 +45,6 @@ module.exports = {
     minimizer: [
       new TerserJsPlugin({
         parallel: true,
-        sourceMap: false,
       }),
       new OptimizeCSSAssetsPlugin({}),
     ],
@@ -60,11 +59,6 @@ module.exports = {
     contentBase: sourceDirectory,
     port: 8000,
   },
-  node: {
-    fs: 'empty',
-    module: 'empty',
-    net: 'empty',
-  },
   module: {
     rules: [
       {
@@ -73,6 +67,9 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
+            options: {
+                babelrcRoots: [path.join(__dirname, '..'), __dirname],
+            }
           },
         ],
       },
@@ -92,6 +89,14 @@ module.exports = {
     ],
   },
   resolve: {
+    fallback: {
+        fs: false,
+        module: false,
+        net: false,
+        buffer: require.resolve("buffer/"),
+        assert: false,
+        path: require.resolve("path-browserify"),
+    },
     alias: {
       'react-docgen': path.resolve(__dirname, '../src/main'),
     },
